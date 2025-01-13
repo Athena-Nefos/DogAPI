@@ -47,16 +47,19 @@ export async function fetchDogImages(breedId) {
 }
 
 // Function to fetch available dogs for purchase (simulated)
-export async function fetchAvailableDogs() {
+export async function fetchAvailableDogs(breedId = null) {
     try {
         // In a real application, this would be your backend endpoint
-        const response = await apiClient.get('/images/search', {
-            params: {
-                limit: 10,
-                has_breeds: 1
-            }
-        });
-        
+        const params = {
+            limit: 10,
+            has_breeds:1
+        };
+
+        if (breedId) {
+            params.breeds_id = breedId;
+        }
+
+        const response = await apiClient.get('/images/search', {params});
         // Transform the data to include price and availability
         return response.data.map(dog => ({
             id: dog.id,
@@ -91,6 +94,30 @@ export async function addToCart(dogData) {
         return response.data;
     } catch (error) {
         console.error('Error adding to cart:', error);
+        throw error;
+    }
+}
+
+// function to add/remove favourite (post request)
+export async function toggleFavourite(imageId) {
+    try {
+        const response = await apiClient.post('/favourites', {
+            image_id: imageId
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error toggling favourite:', error);
+        throw error;
+    }
+}
+
+//function to fetch favourites
+export async function fetchFavourites() {
+    try {
+        const response = await apiClient.get('/favourites');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching favourites:', error);
         throw error;
     }
 }
