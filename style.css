@@ -134,23 +134,3 @@ input {
     border: 1px solid #ddd;
     border-radius: 4px;
 }
-
-Copy.favorite-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    opacity: 0.5;
-    transition: opacity 0.2s;
-}
-
-.favorite-btn.favorited {
-    opacity: 1;
-    color: red;
-}
-
-.card-buttons {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}

@@ -145,30 +145,3 @@ export function loadCartFromStorage() {
 export function generateUniqueId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
-
-export function createDogCard(dog, onAddToCart, onToggleFavorite) {
-    const card = document.createElement('div');
-    card.classList.add('dog-card');
-    
-    card.innerHTML = `
-        <img src="${dog.imageUrl}" alt="${dog.breed}" class="dog-image">
-        <div class="dog-info">
-            <h3>${dog.breed}</h3>
-            <p class="price">${formatPrice(dog.price)}</p>
-            <div class="card-buttons">
-                <button class="add-to-cart-btn" data-dog-id="${dog.id}">
-                    Add to Cart
-                </button>
-                <button class="favorite-btn" data-image-id="${dog.id}">
-                    🩷
-                </button>
-            </div>
-        </div>
-    `;
-    
-    // Add event listeners
-    card.querySelector('.add-to-cart-btn').addEventListener('click', onAddToCart);
-    card.querySelector('.favorite-btn').addEventListener('click', onToggleFavorite);
-    
-    return card;
-}
